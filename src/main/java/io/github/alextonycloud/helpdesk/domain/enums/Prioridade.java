@@ -2,7 +2,7 @@ package io.github.alextonycloud.helpdesk.domain.enums;
 
 public enum Prioridade {
 
-	ADMIN(0, "ABERTO"), CLIENTE(1, "ANDAMENTO"), TECNICO(0, "ENCERRADO");
+	ABERTO(0, "ABERTO"), ANDAMENTO(1, "ANDAMENTO"), ENCERRADO(0, "ENCERRADO");
 	
 	private Integer codigo;
 	private String descricao;

@@ -2,7 +2,7 @@ package io.github.alextonycloud.helpdesk.domain.enums;
 
 public enum Status {
 
-	ADMIN(0, "BAIXA"), CLIENTE(1, "MEDIA"), TECNICO(0, "ALTA");
+	BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"), ALTA(0, "ALTA");
 	
 	private Integer codigo;
 	private String descricao;
