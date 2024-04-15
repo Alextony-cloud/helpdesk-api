@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.alextonycloud.helpdesk.domain.Tecnico;
 import io.github.alextonycloud.helpdesk.repositories.TecnicoRepository;
+import io.github.alextonycloud.helpdesk.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class TecnicoService {
@@ -18,7 +19,7 @@ public class TecnicoService {
 	
 	public Tecnico findById(Integer id) {
 		 Optional<Tecnico> obj = repository.findById(id);
-		 return obj.orElse(null);
+		 return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}
 	
 }
