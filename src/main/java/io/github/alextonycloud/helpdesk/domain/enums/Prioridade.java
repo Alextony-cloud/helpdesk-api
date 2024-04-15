@@ -2,7 +2,7 @@ package io.github.alextonycloud.helpdesk.domain.enums;
 
 public enum Prioridade {
 
-	ABERTO(0, "ABERTO"), ANDAMENTO(1, "ANDAMENTO"), ENCERRADO(0, "ENCERRADO");
+	BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"), ALTA(3, "ALTA");
 	
 	private Integer codigo;
 	private String descricao;
@@ -26,6 +26,6 @@ public enum Prioridade {
 		for(Prioridade x : Prioridade.values()) {
 			if(cod.equals(x.getCodigo())) return x;
 		}
-		throw new IllegalArgumentException("Status inválido");
+		throw new IllegalArgumentException("Prioridade inválido");
 	}
 }
