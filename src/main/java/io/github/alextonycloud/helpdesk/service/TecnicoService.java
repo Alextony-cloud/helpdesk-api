@@ -5,17 +5,22 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import io.github.alextonycloud.helpdesk.domain.Pessoa;
 import io.github.alextonycloud.helpdesk.domain.Tecnico;
+import io.github.alextonycloud.helpdesk.repositories.PessoaRepository;
 import io.github.alextonycloud.helpdesk.repositories.TecnicoRepository;
+import io.github.alextonycloud.helpdesk.service.exceptions.DataIntegrityViolationException;
 import io.github.alextonycloud.helpdesk.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class TecnicoService {
 
 	private final TecnicoRepository repository;
+	private final PessoaRepository pessoaRepository;
 
-	public TecnicoService(TecnicoRepository repository) {
+	public TecnicoService(TecnicoRepository repository, PessoaRepository pessoaRepository) {
 		this.repository = repository;
+		this.pessoaRepository = pessoaRepository;
 	}
 	
 	public Tecnico findById(Integer id) {
@@ -28,8 +33,20 @@ public class TecnicoService {
 	}
 
 	public Tecnico create(Tecnico tecnico) {
+		validByCPFAndEmail(tecnico);
 		tecnico.setId(null);
 		return repository.save(tecnico);
+	}
+
+	private void validByCPFAndEmail(Tecnico tecnico) {
+		Optional<Pessoa> obj = pessoaRepository.findByCpf(tecnico.getCpf());
+		if(obj.isPresent() && obj.get().getId() != tecnico.getId()) {
+			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
+		}
+		obj = pessoaRepository.findByEmail(tecnico.getEmail());
+		if(obj.isPresent() && obj.get().getId() != tecnico.getId()) {
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
+		}
 	}
 	
 }
