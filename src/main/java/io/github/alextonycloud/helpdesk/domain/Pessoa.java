@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,12 +28,16 @@ public abstract class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	@NotEmpty(message = "O campo NOME é requerido")
 	protected String nome;
 	
 	@Column(unique = true)
+	@NotEmpty(message = "O campo CPF é requerido")
 	protected String cpf;
 	@Column(unique = true)
+	@NotEmpty(message = "O campo EMAIL é requerido")
 	protected String email;
+	@NotEmpty(message = "O campo SENHA é requerido")
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
