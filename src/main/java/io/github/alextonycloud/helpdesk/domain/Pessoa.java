@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.github.alextonycloud.helpdesk.domain.enums.Perfil;
@@ -32,6 +34,7 @@ public abstract class Pessoa implements Serializable{
 	protected String nome;
 	
 	@Column(unique = true)
+	@CPF
 	@NotEmpty(message = "O campo CPF é requerido")
 	protected String cpf;
 	@Column(unique = true)
