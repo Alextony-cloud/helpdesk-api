@@ -22,7 +22,7 @@ import io.github.alextonycloud.helpdesk.domain.dtos.ClienteDTO;
 import io.github.alextonycloud.helpdesk.service.ClienteService;
 
 @RestController
-@RequestMapping(value = "/Clientes")
+@RequestMapping(value = "/clientes")
 public class ClienteResource {
 
 	private ClienteService service;

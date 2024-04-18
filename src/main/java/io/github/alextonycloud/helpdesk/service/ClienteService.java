@@ -47,10 +47,10 @@ public class ClienteService {
 	}
 
 	public void delete(Integer id) {
-		repository.findById(id).map(Cliente -> {
-			if(Cliente.getChamados().size() > 0) throw new DataIntegrityViolationException("Cliente possui ordens de serviço e não pode ser deletado!");
-			repository.delete(Cliente);
-			return Cliente;
+		repository.findById(id).map(cliente -> {
+			if(cliente.getChamados().size() > 0) throw new DataIntegrityViolationException("Cliente possui ordens de serviço e não pode ser deletado!");
+			repository.delete(cliente);
+			return cliente;
 		}).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}
 	
