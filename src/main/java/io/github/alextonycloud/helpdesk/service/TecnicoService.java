@@ -3,6 +3,7 @@ package io.github.alextonycloud.helpdesk.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.github.alextonycloud.helpdesk.domain.Pessoa;
@@ -17,10 +18,12 @@ public class TecnicoService {
 
 	private final TecnicoRepository repository;
 	private final PessoaRepository pessoaRepository;
-
-	public TecnicoService(TecnicoRepository repository, PessoaRepository pessoaRepository) {
+	private final BCryptPasswordEncoder encoder;
+	
+	public TecnicoService(TecnicoRepository repository, PessoaRepository pessoaRepository, BCryptPasswordEncoder encoder) {
 		this.repository = repository;
 		this.pessoaRepository = pessoaRepository;
+		this.encoder = encoder;
 	}
 	
 	public Tecnico findById(Integer id) {
@@ -33,8 +36,9 @@ public class TecnicoService {
 	}
 
 	public Tecnico create(Tecnico tecnico) {
-		validByCPFAndEmail(tecnico);
 		tecnico.setId(null);
+		tecnico.setSenha(encoder.encode(tecnico.getSenha()));
+		validByCPFAndEmail(tecnico);
 		return repository.save(tecnico);
 	}
 	
